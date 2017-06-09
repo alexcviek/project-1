@@ -7,6 +7,9 @@
     "start": "node server.js",
     "postinstall": "gulp build"
   },
+  "engines": {
+    "node": "7.10.0"
+  },
   "author": "Mike Hayden <mickyginger@gmail.com> (https://github.com/mickyginger)",
   "license": "ISC",
   "devDependencies": {
