@@ -8,8 +8,6 @@ const notify      = require('gulp-notify');
 const plumber     = require('gulp-plumber');
 const sourcemaps  = require('gulp-sourcemaps');
 const nodemon     = require('gulp-nodemon');
-const clean       = require('gulp-clean');
-const sequence    = require('run-sequence');
 
 function reportError(error) {
   notify({
@@ -19,11 +17,6 @@ function reportError(error) {
   console.log(error.toString());
   this.emit('end');
 }
-
-gulp.task('clean', () => {
-  return gulp.src('public/**/*', { read: false })
-    .pipe(clean());
-});
 
 gulp.task('es6', () => {
   return gulp.src('src/js/*.js')
@@ -50,7 +43,7 @@ gulp.task('assets', () => {
     .pipe(gulp.dest('public/assets'));
 });
 
-gulp.task('serve', sequence('clean', ['es6', 'sass']), () => {
+gulp.task('serve', ['es6', 'sass'], () => {
   browserSync.init({
     proxy: 'http://localhost:3000',
     port: 8000,
@@ -58,13 +51,14 @@ gulp.task('serve', sequence('clean', ['es6', 'sass']), () => {
     reloadDelay: 500
   });
 
-  return nodemon().on('start', () => browserSync.reload());
+  return nodemon()
+    .on('start', () => browserSync.reload());
 });
 
-gulp.task('build', sequence('clean', ['sass', 'es6', 'assets']));
-
-gulp.task('default', sequence('clean', ['sass', 'es6', 'assets', 'serve']), () => {
+gulp.task('default', ['sass', 'es6', 'assets', 'serve'], () => {
   gulp.watch('src/scss/**/*.scss', ['sass']);
   gulp.watch('src/js/*.js', ['es6']);
   gulp.watch('src/assets/**/*', ['assets']);
 });
+
+gulp.task('build', ['sass', 'es6', 'assets']);
