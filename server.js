@@ -6,8 +6,11 @@ const methodOverride    = require('method-override');
 const mongoose          = require('mongoose');
 mongoose.Promise        = require('bluebird');
 const routes            = require('./config/routes');
+const session           = require('express-session');
+const authenticateUser  = require('./lib/authenticateUser');
+const flash             = require('express-flash');
 
-const { port, dbURI } = require('./config/environment');
+const { port, dbURI, secret } = require('./config/environment');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -20,8 +23,13 @@ app.use(expressLayouts);
 app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/login', (req, res) => res.render('sessions/new'));
-app.get('/register', (req, res) => res.render('registrations/new'));
+app.use(session({
+  secret: secret,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(flash());
 
 app.use(methodOverride(function (req) {
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
@@ -30,6 +38,8 @@ app.use(methodOverride(function (req) {
     return method;
   }
 }));
+
+app.use(authenticateUser);
 
 app.use(routes);
 app.listen(port, () => console.log(`Express is listening on port ${port}`));

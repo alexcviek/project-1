@@ -2,29 +2,40 @@ const router = require('express').Router();
 
 const statics = require('../controllers/statics');
 const auroras = require('../controllers/auroras');
-
+const sessions = require('../controllers/sessions');
+const registrations = require('../controllers/registrations');
+const secureRoute   = require('../lib/secureRoute');
 
 router.route('/')
   .get(statics.index);
 
 router.route('/dashboard')
-  .get(statics.dashboard);
+  .get(secureRoute, statics.dashboard);
 
 router.route('/auroras')
-  .get(auroras.index)
-  .post(auroras.create);
+  .get(secureRoute, auroras.index)
+  .post(secureRoute, auroras.create);
 
 router.route('/auroras/new')
-  .get(auroras.new);
+  .get(secureRoute, auroras.new);
 
 router.route('/auroras/:id')
-  .get(auroras.show)
-  .put(auroras.update)
-  .delete(auroras.delete);
+  .get(secureRoute, auroras.show)
+  .put(secureRoute, auroras.update)
+  .delete(secureRoute, auroras.delete);
 
 router.route('/auroras/:id/edit')
-  .get(auroras.edit);
+  .get(secureRoute, auroras.edit);
 
-// app.get('/', (req, res) => res.render('statics/index'));
-// app.get('/dashboard', (req, res) => res.render('statics/dashboard'));
+router.route('/register')
+  .get(registrations.new)
+  .post(registrations.create);
+
+router.route('/login')
+  .get(sessions.new)
+  .post(sessions.create);
+
+router.route('/logout')
+  .get(sessions.delete);
+
 module.exports = router;

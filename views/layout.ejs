@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>HELLO THERE</title>
-    <%- include ./partials/stylesheets %>
-    <%- include ./partials/scripts %>
-  </head>
-  <body>
-    <%- body %>
+<head>
+  <meta charset="utf-8">
+  <title>HELLO THERE</title>
+  <%- include ./partials/stylesheets %>
+  <%- include ./partials/scripts %>
+</head>
+<body>
+  <header>
+    <% if(locals.isLoggedIn) { %>
+    <% include ./partials/navbar %>
+    <% } %>
+  </header>
+  <main class="container">
+    <% for (const type in messages) { %>
+      <p class="alert alert-<%= type %>"><%= messages[type] %></p>
+      <% } %>
+      <%- body %>
+    </main>
   </body>
-</html>
+  </html>

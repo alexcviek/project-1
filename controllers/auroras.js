@@ -64,18 +64,6 @@ function aurorasDelete(req, res, next){
   .catch(next);
 }
 
-// function aurorasDelete(req, res, next) {
-//   Aurora
-//   .findById(req.params.id)
-//   .then((aurora) => {
-//     if(!aurora) return res.status(404).render('statics/error');
-//     return aurora.remove();
-//   })
-//   .then(() => res.redirect('/auroras'))
-//   .catch(next);
-// }
-
-
 module.exports = {
   index: aurorasIndex,
   new: aurorasNew,
