@@ -9,6 +9,8 @@ const routes            = require('./config/routes');
 const session           = require('express-session');
 const authenticateUser  = require('./lib/authenticateUser');
 const flash             = require('express-flash');
+const errorHandler      = require('./lib/errorHandler');
+const customResponses   = require('./lib/customResponses');
 
 const { port, dbURI, secret } = require('./config/environment');
 
@@ -39,7 +41,10 @@ app.use(methodOverride(function (req) {
   }
 }));
 
+app.use(customResponses);
 app.use(authenticateUser);
 
 app.use(routes);
+app.use(errorHandler);
+
 app.listen(port, () => console.log(`Express is listening on port ${port}`));

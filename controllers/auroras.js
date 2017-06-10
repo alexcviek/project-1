@@ -18,7 +18,10 @@ function aurorasCreate(req, res, next){
   Aurora
   .create(req.body)
   .then(() => res.redirect('/auroras'))
-  .catch(next);
+  .catch((err) => {
+    if(err.name === 'ValidationError') return res.badRequest(`/auroras/new`, err.toString());
+    next(err);
+  });
 }
 
 function aurorasShow(req, res, next){
@@ -26,7 +29,7 @@ function aurorasShow(req, res, next){
   .findById(req.params.id)
   .populate('createdBy comments.createdBy')
   .then((aurora) => {
-    if(!aurora) return res.status(404).render('statics/404');
+    if(!aurora) return res.notFound();
     res.render('auroras/show', { aurora });
   })
   .catch(next);
@@ -36,8 +39,9 @@ function aurorasEdit(req, res, next){
   Aurora
   .findById(req.params.id)
   .then((aurora) => {
-    if(!aurora) return res.status(404).render('statics/404');
-    res.render('auroras/edit', { aurora });
+    if(!aurora) return res.redirect();
+    if(!aurora.belongsTo(req.user)) return res.unauthorized(`/auroras/${aurora.id}`, 'You do not have permission to edit that resource');
+    return res.render('auroras/edit', { aurora });
   })
   .catch(next);
 
@@ -47,21 +51,28 @@ function aurorasUpdate(req, res, next){
   Aurora
   .findById(req.params.id)
   .then((aurora) => {
-    if(!aurora) return res.status(404).render('statics/404');
+    if(!aurora) return res.redirect();
+    if(!aurora.belongsTo(req.user)) return res.unauthorized(`/auroras/${aurora.id}`, 'You do not have permission to edit that resource');
+
     for(const x in req.body) {
       aurora[x] = req.body[x];
     }
+
     return aurora.save();
   })
-  .then((aurora) => res.redirect(`/auroras/${aurora.id}`))
-  .catch(next);
+  .then(() => res.redirect(`/auroras/${req.params.id}`))
+  .catch((err) => {
+    if(err.name === 'ValidationError') return res.badRequest(`/auroras/${req.params.id}/edit`, err.toString());
+    next(err);
+  });
 }
 
 function aurorasDelete(req, res, next){
   Aurora
   .findById(req.params.id)
   .then((aurora) => {
-    if(!aurora) return res.status(404).render('statics/404');
+    if(!aurora) return res.redirect();
+    if(!aurora.belongsTo(req.user)) return res.unauthorized(`/auroras/${aurora.id}`, 'You do not have permission to edit that resource');
     return aurora.remove();
   })
   .then(() => res.redirect('/auroras'))
