@@ -1,13 +1,14 @@
-<h1>show one</h1>
-
-<h1><%= aurora.country %></h1>
-<div style="background-image: url(<%= aurora.image %>)">
+<div class="row">
+  <div class="col-md-6">
+    <img src="<%= aurora.image %>">
+  </div>
+  <div class="col-md-6">
+    <h3><%= aurora.country %></h3>
+  <div class="buttons">
+    <a href="/auroras/<%= aurora.id %>/edit"><button class="btn btn-primary">Edit</button>
+      <form action="/auroras/<%= aurora.id %>" method="POST"></a>
+        <input type="hidden" name="_method" value="DELETE"/>
+        <button class="btn btn-danger">Delete</button>
+        <div>
+  </div>
 </div>
-<img src="<%= aurora.image %>">
-
-<div class="buttons">
-  <a href="/auroras/<%= aurora.id %>/edit"><button class="btn btn-primary">Edit</button>
-  <form action="/auroras/<%= aurora.id %>" method="POST"></a>
-  <input type="hidden" name="_method" value="DELETE"/>
-  <button class="btn btn-danger">Delete</button>
-  <div>

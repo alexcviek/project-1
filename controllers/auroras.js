@@ -12,6 +12,9 @@ function aurorasNew(req, res){
 }
 
 function aurorasCreate(req, res, next){
+
+  req.body.createdBy = req.user;
+
   Aurora
   .create(req.body)
   .then(() => res.redirect('/auroras'))

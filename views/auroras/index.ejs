@@ -1,13 +1,14 @@
-<h1>gallery of auroras and I have never seen a single one in my life ;(</h1>
+<h2>Gallery</h2>
 
 <a href="/auroras/new">Add a new one!</a>
-
+<div class="row">
   <% auroras.forEach((aurora) => { %>
-      <div class="col-md-6">
+      <div class="col-md-4 picture-box">
+      <a href="/auroras/<%= aurora.id %>">
       <div class="card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),url(<%= aurora.image %>)">
-        <a href="/auroras/<%= aurora.id %>">Click</a>
         <h4><%= aurora.country %></h4>
         </div>
+        </a>
       </div>
     <% }); %>
   </div>
