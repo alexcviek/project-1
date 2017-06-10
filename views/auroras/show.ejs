@@ -4,11 +4,41 @@
   </div>
   <div class="col-md-6">
     <h3><%= aurora.country %></h3>
-  <div class="buttons">
+    <p>Photo by: <%= aurora.createdBy.username %></p>
+    <% if(locals.isLoggedIn && aurora.belongsTo(user)) { %>
     <a href="/auroras/<%= aurora.id %>/edit"><button class="btn btn-primary">Edit</button>
       <form action="/auroras/<%= aurora.id %>" method="POST"></a>
         <input type="hidden" name="_method" value="DELETE"/>
         <button class="btn btn-danger">Delete</button>
-        <div>
+      </form>
+    <% } %>
+
+  <% if(locals.isLoggedIn) { %>
+  <section>
+  <form method="POST" action="/auroras/<%= aurora.id %>/comments">
+  <div class="field">
+  <label class="label">Leave a comment</label>
+  <textarea name="content" id="content" placeholder="Your comment" rows="3" cols="50"></textarea>
+  </div>
+  <button class="">Leave a comment</button>
+  </form>
+  </section>
+
+  <section>
+  <h4>Comments</h4>
+  <% aurora.comments.forEach((comment) => { %>
+    <div class="card">
+    <p><small><%= comment.createdBy.username %></small> <%= comment.content %></p>
+    <% if(locals.isLoggedIn && comment.belongsTo(user)) { %>
+      <form method="POST" action="/auroras/<%= aurora.id %>/comments/<%= comment.id %>">
+      <input type="hidden" name="_method" value="DELETE">
+      <button>Delete</button>
+      </form>
+    <% } %>
+    </div>
+    <% }) %>
+    </section>
+    <% } %>
+
   </div>
 </div>

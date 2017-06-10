@@ -38,4 +38,10 @@ router.route('/login')
 router.route('/logout')
   .get(sessions.delete);
 
+router.route('/auroras/:id/comments')
+  .post(secureRoute, auroras.createComment);
+
+router.route('/auroras/:id/comments/:commentId')
+  .delete(secureRoute, auroras.deleteComment);
+
 module.exports = router;

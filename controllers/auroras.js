@@ -24,6 +24,7 @@ function aurorasCreate(req, res, next){
 function aurorasShow(req, res, next){
   Aurora
   .findById(req.params.id)
+  .populate('createdBy comments.createdBy')
   .then((aurora) => {
     if(!aurora) return res.status(404).render('statics/404');
     res.render('auroras/show', { aurora });
@@ -67,6 +68,38 @@ function aurorasDelete(req, res, next){
   .catch(next);
 }
 
+function createCommentRoute(req, res, next) {
+
+  req.body.createdBy = req.user;
+
+  Aurora
+    .findById(req.params.id)
+    .exec()
+    .then((aurora) => {
+      if(!aurora) return res.notFound();
+
+      aurora.comments.push(req.body);
+      return aurora.save();
+    })
+    .then((aurora) => res.redirect(`/auroras/${aurora.id}`))
+    .catch(next);
+}
+
+function deleteCommentRoute(req, res, next) {
+  Aurora
+    .findById(req.params.id)
+    .exec()
+    .then((aurora) => {
+      if(!aurora) return res.notFound();
+      const comment = aurora.comments.id(req.params.commentId);
+      comment.remove();
+
+      return aurora.save();
+    })
+    .then((aurora) => res.redirect(`/auroras/${aurora.id}`))
+    .catch(next);
+}
+
 module.exports = {
   index: aurorasIndex,
   new: aurorasNew,
@@ -74,5 +107,7 @@ module.exports = {
   show: aurorasShow,
   edit: aurorasEdit,
   update: aurorasUpdate,
-  delete: aurorasDelete
+  delete: aurorasDelete,
+  createComment: createCommentRoute,
+  deleteComment: deleteCommentRoute
 };
