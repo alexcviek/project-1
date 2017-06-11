@@ -1,17 +1,12 @@
 const mongoose = require('mongoose');
 const bcrypt   = require('bcrypt');
+const s3 = require('../lib/s3');
 
 const userSchema = new mongoose.Schema({
   username: { type: String },
   email: { type: String, required: true },
+  image: { type: String },
   password: { type: String, required: true }
-});
-
-userSchema.pre('save', function hashPassword(next) {
-  if (this.isModified('password')) {
-    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
-  }
-  next();
 });
 
 userSchema
@@ -20,8 +15,34 @@ userSchema
     this._passwordConfirmation = passwordConfirmation;
   });
 
+userSchema
+  .virtual('imageSRC')
+  .get(function getImageSRC() {
+    if(!this.image) return null;
+    if(this.image.match(/^http/)) return this.image;
+    return `https://s3-eu-west-1.amazonaws.com/wdi27/${this.image}`;
+  });
+
+userSchema.pre('remove', function removeImage(next) {
+  if(!this.image) return next();
+  s3.deleteObject({ Key: this.image }, next);
+});
+
+// lifecycle hook - mongoose middleware
 userSchema.pre('validate', function checkPassword(next) {
-  if (this.isModified('password') && this._passwordConfirmation !== this.password) this.invalidate('passwordConfirmation', 'does not match');
+  if(!this.password && !this.githubId) {
+    this.invalidate('password', 'required');
+  }
+  if(this.isModified('password') && this.password && this._passwordConfirmation !== this.password){
+    this.invalidate('passwordConfirmation', 'does not match');
+  }
+  next();
+});
+
+userSchema.pre('save', function checkPassword(next) {
+  if(this.isModified('password')) {
+    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
+  }
   next();
 });
 

@@ -4,15 +4,14 @@ function registrationsNew(req, res){
   return res.render('registrations/new');
 }
 
-function registrationsCreate(req, res) {
+function registrationsCreate(req, res, next) {
+
   User
     .create(req.body)
     .then(() => res.redirect('/login'))
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        return res.status(400).render('registrations/new', { message: 'Passwords do not match' });
-      }
-      res.status(500).end();
+      if(err.name === 'ValidationError') return res.badRequest('/register', err.toString());
+      next(err);
     });
 }
 

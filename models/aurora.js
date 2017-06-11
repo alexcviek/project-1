@@ -19,6 +19,14 @@ const auroraSchema = new mongoose.Schema({
   comments: [ commentSchema ]
 });
 
+auroraSchema
+  .virtual('imageSRC')
+  .get(function getImageSRC() {
+    if(!this.image) return null;
+    if(this.image.match(/^http/)) return this.image;
+    return `https://s3-eu-west-1.amazonaws.com/wdi27/${this.image}`;
+  });
+
 auroraSchema.methods.belongsTo = function auroraBelongsTo(user) {
   if(typeof this.createdBy.id === 'string') return this.createdBy.id === user.id;
   return user.id === this.createdBy.toString();

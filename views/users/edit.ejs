@@ -1,0 +1,17 @@
+<h1 class="title">Edit your profile</h1>
+
+  <form class="col-md-4" method="POST" action="/users/<%= user.id %>" enctype="multipart/form-data">
+    <div>
+      <label class="label" for="username">Name</label>
+      <input class="form-control" type="text" name="username" id="username" value="<%= user.username %>">
+    </div>
+    <div>
+      <label class="label" for="email">Email</label>
+      <input class="form-control" type="email" name="email" id="email" value="<%= user.email %>">
+    </div>
+    <div>
+      <label for="image">Image</label>
+      <input class="form-control" type="file" name="image" id="image">
+    </div>
+    <button class="btn btn-primary">Update</button>
+  </form>

@@ -1,12 +1,12 @@
-<h2>new one!</h2>
-<form class="col-md-4" method="POST" action="/auroras">
+<h2>new one!</h1>
+<form class="col-md-4" method="POST" action="/auroras" enctype="multipart/form-data">
   <div>
     <label for="country">Country</label>
-    <input class="form-control" type="text" name="country" id="country">
+    <input class="form-control" type="text" name="country" id="country" required>
   </div>
   <div>
-    <label for="image">Image URL</label>
-    <input class="form-control" type="text" name="image" id="image">
+    <label for="image">Image</label>
+    <input class="form-control" type="file" name="image" id="image" required>
   </div>
   <button class="btn btn-primary">Create</button>
 </form>

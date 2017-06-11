@@ -12,8 +12,9 @@ function aurorasNew(req, res){
 }
 
 function aurorasCreate(req, res, next){
-
   req.body.createdBy = req.user;
+
+  if(req.file) req.body.image = req.file.key;
 
   Aurora
   .create(req.body)

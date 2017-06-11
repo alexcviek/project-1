@@ -49,23 +49,31 @@ header{
     }
   }
 }
-.login-box{
-  border: 2px solid hotpink;
-  margin: 50px auto;
-  p{
-    text-align: center;
-  }
-}
-form{
-  margin: 0 auto;
-}
-.picture-box{
-  .card{
-    height: 300px;
-    width: 300px;
-    h4{
-      padding: 10px;
-      color: #fff;
+main{
+  .login-box{
+    border: 2px solid green;
+    margin: 50px auto;
+    padding: 50px;
+    p{
+      text-align: center;
     }
+  }
+  form{
+    margin: 0 auto;
+  }
+  .picture-box{
+    .card{
+      height: 300px;
+      width: 300px;
+      h4{
+        padding: 10px;
+        color: #fff;
+      }
+    }
+  }
+  .alert{
+    margin: 30px auto;
+    width: 50%;
+    text-align: center;
   }
 }

@@ -4,7 +4,9 @@ const statics = require('../controllers/statics');
 const auroras = require('../controllers/auroras');
 const sessions = require('../controllers/sessions');
 const registrations = require('../controllers/registrations');
+const users = require('../controllers/users');
 const secureRoute   = require('../lib/secureRoute');
+const upload = require('../lib/upload');
 
 router.route('/')
   .get(statics.index);
@@ -14,7 +16,7 @@ router.route('/dashboard')
 
 router.route('/auroras')
   .get(secureRoute, auroras.index)
-  .post(secureRoute, auroras.create);
+  .post(secureRoute, upload.single('image'), auroras.create);
 
 router.route('/auroras/new')
   .get(secureRoute, auroras.new);
@@ -26,6 +28,14 @@ router.route('/auroras/:id')
 
 router.route('/auroras/:id/edit')
   .get(secureRoute, auroras.edit);
+
+router.route('/users/:id')
+  .get(secureRoute, users.show)
+  .post(upload.single('image'), users.update)
+  .delete(secureRoute, users.delete);
+
+router.route('/users/:id/edit')
+  .get(secureRoute, users.edit);
 
 router.route('/register')
   .get(registrations.new)
@@ -43,5 +53,7 @@ router.route('/auroras/:id/comments')
 
 router.route('/auroras/:id/comments/:commentId')
   .delete(secureRoute, auroras.deleteComment);
+
+router.all('*', (req, res) => res.notFound());
 
 module.exports = router;
