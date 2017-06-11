@@ -4,18 +4,18 @@
     <h3>FORECAST</h3>
   </div>
   <div class="col-md-6">
-    <h3>PICS HERE</h3>
+    <h3>GALLERY</h3>
 
     <div class="row">
       <% auroras.forEach((aurora) => { %>
           <div class="col-md-6 picture-box">
-          <a href="/auroras/<%= aurora.id %>">
+          <a href="/auroras">
           <div class="card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),url(<%= aurora.imageSRC %>)">
-            <h4><%= aurora.country %></h4>
             </div>
             </a>
           </div>
         <% }); %>
+        <a href="/auroras" class="btn btn-primary">See more!</a>
       </div>
 
   </div>
