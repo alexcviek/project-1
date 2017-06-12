@@ -1,18 +1,27 @@
 <h2 class="title">Hello, <%= user.username %>! </h2>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <h4>Your profile details</h4>
 
-      <div class="profile-img" style="background-image: url(<%= user.imageSRC %>)">
+      <div class="profile-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),url(<%= user.imageSRC %>)">
         </div>
       <form class="buttons" method="POST" action="/users/<%= user.id %>">
-        <a href="/users/<%= user.id %>/edit"><button class="btn btn-primary">Edit Account</button></a>
+        <a href="/users/<%= user.id %>/edit" class="btn btn-primary">Edit Account</a>
         <input type="hidden" name="_method" value="DELETE">
         <button class="btn btn-danger">Delete Account</button>
       </form>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-8">
     <h4>My places</h4>
+    <% user.places.forEach((place) => { %>
+        <p><%= place.name %></p>
+        <p>Latitude: <%= place.lat %></p>
+        <p>Longitude: <%= place.lng %></p>
+        <form method="POST" action="/users/<%= user.id %>/places/<%= place.id %>">
+        <input type="hidden" name="_method" value="DELETE">
+        <button>Delete</button>
+        </form>
+      <% }) %>
   </div>
 
 

@@ -2,21 +2,17 @@
 <div class="row">
   <div class="col-md-6">
     <h3>FORECAST</h3>
+    <a href="/forecasts">
+    <div id="map">
+    </div>
+  </a>
   </div>
   <div class="col-md-6">
-    <h3>GALLERY</h3>
-
-    <div class="row">
-      <% auroras.forEach((aurora) => { %>
-          <div class="col-md-6 picture-box">
+    <h3>Featured picture</h3>
           <a href="/auroras">
-          <div class="card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),url(<%= aurora.imageSRC %>)">
+          <div class="card featured-picture" style="background-image: url(<%= auroras[0].imageSRC %>)">
             </div>
             </a>
-          </div>
-        <% }); %>
-        <a href="/auroras" class="btn btn-primary">See more!</a>
-      </div>
 
   </div>
 

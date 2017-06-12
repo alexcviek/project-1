@@ -3,6 +3,7 @@ const User = require('../models/user');
 function userShow (req, res, next) {
   User
     .findById(req.params.id)
+    // .populate('place')
     .exec()
     .then((user) => {
       if(!user) return res.notFound();
@@ -54,9 +55,41 @@ function userDelete(req, res, next) {
     .catch(next);
 }
 
+function placesCreate(req, res, next) {
+  console.log(req.body);
+  User
+    .findById(req.params.id)
+    .exec()
+    .then((user) => {
+      if(!user) return res.notFound();
+
+      user.places.push(req.body);
+      return user.save();
+    })
+    .then((user) => res.redirect(`/users/${user.id}`))
+    .catch(next);
+}
+
+function placesDelete(req, res, next) {
+  User
+    .findById(req.params.id)
+    .exec()
+    .then((user) => {
+      if(!user) return res.notFound();
+      const comment = user.places.id(req.params.placeId);
+      comment.remove();
+
+      return user.save();
+    })
+    .then((user) => res.redirect(`/users/${user.id}`))
+    .catch(next);
+}
+
 module.exports = {
   show: userShow,
   edit: userEdit,
   update: userUpdate,
-  delete: userDelete
+  delete: userDelete,
+  placesCreate: placesCreate,
+  placesDelete: placesDelete
 };

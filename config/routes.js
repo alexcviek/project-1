@@ -5,6 +5,7 @@ const auroras = require('../controllers/auroras');
 const sessions = require('../controllers/sessions');
 const registrations = require('../controllers/registrations');
 const users = require('../controllers/users');
+const forecasts = require('../controllers/forecasts');
 const secureRoute   = require('../lib/secureRoute');
 const upload = require('../lib/upload');
 
@@ -13,6 +14,12 @@ router.route('/')
 
 router.route('/dashboard')
   .get(secureRoute, statics.dashboard);
+
+router.route('/probability')
+  .get(forecasts.probability);
+
+router.route('/forecasts')
+  .get(secureRoute, forecasts.index);
 
 router.route('/auroras')
   .get(secureRoute, auroras.index)
@@ -53,6 +60,12 @@ router.route('/auroras/:id/comments')
 
 router.route('/auroras/:id/comments/:commentId')
   .delete(secureRoute, auroras.deleteComment);
+
+router.route('/users/:id/places')
+  .post(secureRoute, users.placesCreate);
+
+router.route('/users/:id/places/:placeId')
+  .delete(secureRoute, users.placesDelete);
 
 router.all('*', (req, res) => res.notFound());
 

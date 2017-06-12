@@ -4,9 +4,27 @@ body{
   background-color: #fafafa;
   font-family: 'Raleway', sans-serif;
 }
+
+#video-background {
+/*  making the video fullscreen  */
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+}
+
 h1{
   text-align: center;
   margin-top: 150px;
+  color: #fff;
+  font-size: 50px;
+}
+h2{
+  margin: 50px;
 }
 h2, h3, h4{
   text-align: center;
@@ -51,15 +69,32 @@ header{
 }
 main{
   .login-box{
-    border: 2px solid green;
+    border: 1px solid rgb(255, 255, 255);
     margin: 50px auto;
     padding: 50px;
+    color: #fff;
     p{
       text-align: center;
+    }
+    .btn{
+      background-color: rgba(255, 255, 255, 0.5);
+      border: none;
+    }
+    .btn:hover{
+      background-color: rgba(255, 255, 255, 0.3);
     }
   }
   form{
     margin: 0 auto;
+  }
+  #map{
+    width: 100%;
+    height: 300px;
+    background-color: green;
+  }
+  .featured-picture{
+    height: 300px;
+    background-size: cover;
   }
   .picture-box{
     .card{

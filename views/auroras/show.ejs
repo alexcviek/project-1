@@ -19,7 +19,6 @@
   <section>
   <form method="POST" action="/auroras/<%= aurora.id %>/comments">
   <div>
-  <label>Leave a comment</label>
   <textarea class="form-control" name="content" id="content" placeholder="Your comment" rows="3" cols="50"></textarea>
   </div>
   <button class="btn btn-primary">Leave a comment</button>
@@ -31,7 +30,7 @@
   <% aurora.comments.forEach((comment) => { %>
     <div class="card comment">
       <div class="user-details">
-      <div class="profile-img-small" style="background-image: url(<%= user.imageSRC %>)"></div>
+      <div class="profile-img-small" style="background-image: url(<%= comment.createdBy.imageSRC %>)"></div>
       <small><%= comment.createdBy.username %></small>
       </div>
       <div class="comment-content">
