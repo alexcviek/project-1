@@ -1,19 +1,20 @@
 <div class="row">
   <div class="col-md-6">
-    <img src="<%= aurora.imageSRC %>">
-  </div>
-  <div class="col-md-6">
-    <h3><%= aurora.country %></h3>
+    <div class="card image-big" style="background-image: url(<%= aurora.imageSRC %>)">
+    </div>
+    <p><%= aurora.country %></p>
     <p>Photo by: <%= aurora.createdBy.username %></p>
     <% if(locals.isLoggedIn && aurora.belongsTo(user)) { %>
     <div class="buttons">
     <a href="/auroras/<%= aurora.id %>/edit"><button class="btn btn-primary">Edit</button></a>
       <form action="/auroras/<%= aurora.id %>" method="POST">
         <input type="hidden" name="_method" value="DELETE"/>
-        <button class="btn btn-danger">Delete</button>
+        <button class="btn danger">Delete</button>
       </form>
       </div>
     <% } %>
+  </div>
+  <div class="col-md-6">
 
   <% if(locals.isLoggedIn) { %>
   <section>
@@ -28,17 +29,17 @@
   <section>
   <h4>Comments</h4>
   <% aurora.comments.forEach((comment) => { %>
-    <div class="card comment">
-      <div class="user-details">
+    <div class="row comment">
+      <div class="col-sm-3 user-details">
       <div class="profile-img-small" style="background-image: url(<%= comment.createdBy.imageSRC %>)"></div>
       <small><%= comment.createdBy.username %></small>
       </div>
-      <div class="comment-content">
+      <div class="col-sm-9 comment-content">
       <p><%= comment.content %></p>
       <% if(locals.isLoggedIn && comment.belongsTo(user)) { %>
       <form method="POST" action="/auroras/<%= aurora.id %>/comments/<%= comment.id %>">
       <input type="hidden" name="_method" value="DELETE">
-      <button>Delete</button>
+      <button class="btn danger">X</button>
       </form>
       </div>
     <% } %>

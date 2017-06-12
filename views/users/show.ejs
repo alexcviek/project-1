@@ -8,20 +8,26 @@
       <form class="buttons" method="POST" action="/users/<%= user.id %>">
         <a href="/users/<%= user.id %>/edit" class="btn btn-primary">Edit Account</a>
         <input type="hidden" name="_method" value="DELETE">
-        <button class="btn btn-danger">Delete Account</button>
+        <button class="btn danger">Delete Account</button>
       </form>
   </div>
   <div class="col-md-8">
     <h4>My places</h4>
-    <% user.places.forEach((place) => { %>
+      <div class="row">
+        <% user.places.forEach((place) => { %>
+        <div class="col-md-4 place">
         <p><%= place.name %></p>
         <p>Latitude: <%= place.lat %></p>
         <p>Longitude: <%= place.lng %></p>
+        <p id="forecast"></p>
+        <div class="map-small"></div>
         <form method="POST" action="/users/<%= user.id %>/places/<%= place.id %>">
         <input type="hidden" name="_method" value="DELETE">
-        <button>Delete</button>
+        <button class="btn danger">Delete</button>
         </form>
+        </div>
       <% }) %>
+    </div>
   </div>
 
 

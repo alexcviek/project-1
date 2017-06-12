@@ -2,6 +2,19 @@
 
 $(() => {
 
+  // function initMap(lat,lng) {
+  //   const latLng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+  //   const map = new google.maps.Map(document.getElementById('map'),{
+  //     zoom: 10,
+  //     center: latLng
+  //   });
+  //   new google.maps.Marker({
+  //     map: map,
+  //     position: latLng
+  //   });
+  // }
+  // initMap(latS, lngS);
+
   function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 51.476369, lng: -0.151669},
@@ -32,12 +45,12 @@ $(() => {
         console.log('Returned place contains no geometry');
         return;
       }
-      const lat = places[0].geometry.location.lat();
-      const lng = places[0].geometry.location.lng();
-      const placeName = places[0].formatted_address;
+      const lat = (places[0].geometry.location.lat()).toFixed(6);
+      const lng = (places[0].geometry.location.lng()).toFixed(6);
+      const placeName = (`${places[0].name}`);
       $('h3.place-name').html(placeName);
-      $('p.lat').html(lat);
-      $('p.lng').html(lng);
+      $('p.lat').html(`Latitude: ${lat}`);
+      $('p.lng').html(`Longitude: ${lng}`);
 
       $('input.place-name').val(placeName);
       $('input.lat').val(lat);
@@ -78,6 +91,15 @@ $(() => {
     })
     .then((forecast) => {
       $forecast.html(`The kp in 1 hour will be ${forecast.ace.kp1hour} and the temperature is ${forecast.weather.temperature} `);
+      if(lat >= 60 && forecast.ace.kp1hour >= 5 ||
+         lat >= 62 && forecast.ace.kp1hour >= 4 ||
+         lat >= 65 && forecast.ace.kp1hour >= 3 ||
+         lat >= 68 && forecast.ace.kp1hour >= 2 ||
+         lat >= 70 && forecast.ace.kp1hour >= 1){
+        $('#probability').html('High chances to see northern lights! :)');
+      } else {
+        $('#probability').html('Kp too weak or too far away from North Pole');
+      }
     });
   }
   initAutocomplete();
