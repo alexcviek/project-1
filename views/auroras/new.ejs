@@ -1,8 +1,9 @@
 <h2>new one!</h1>
 <form class="col-md-4" method="POST" action="/auroras" enctype="multipart/form-data">
   <div>
-    <label for="country">Country</label>
-    <input class="form-control" type="text" name="country" id="country" required>
+    <label for="country">Place where the photo was taken</label>
+    <input id="pac-input" name="country" class="controls form-control" type="text" placeholder="Please input location">
+    <div id="map"></div>
   </div>
   <div>
     <label for="image">Image</label>

@@ -20,7 +20,7 @@
         <p>Latitude: <%= place.lat %></p>
         <p>Longitude: <%= place.lng %></p>
         <p id="forecast"></p>
-        <div class="map-small"></div>
+        <div class="map-small" data-lat="<%= place.lat %>" data-lng="<%= place.lng %>"></div>
         <form method="POST" action="/users/<%= user.id %>/places/<%= place.id %>">
         <input type="hidden" name="_method" value="DELETE">
         <button class="btn danger">Delete</button>
