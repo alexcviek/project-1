@@ -29,21 +29,25 @@ $(() => {
       }
       const lat = (places[0].geometry.location.lat()).toFixed(6);
       const lng = (places[0].geometry.location.lng()).toFixed(6);
-      const country = places[0].address_components.find((property) => {
-        return property.key === 'short_name';
-      });
-      const placeName = (`${places[0].name}`);
-      $('h3.place-name').html(placeName);
-      $('p.lat').html(`Latitude: ${lat}`);
-      $('p.lng').html(`Longitude: ${lng}`);
-      $('.forecast-big').html('Loading the forecast...');
-      if(places[0].name.length > 0){
-        $('.add-places').attr('hidden', false);
-      }
 
-      $('input.place-name').val(placeName);
-      $('input.lat').val(lat);
-      $('input.lng').val(lng);
+      $.ajax({
+        url: `http://api.geonames.org/countryCodeJSON?lat=${lat}&lng=${lng}&username=alexcwiek`
+      })
+      .done((response) => {
+        const placeName = (`${places[0].name}, ${response.countryCode}`);
+        $('h3.place-name').html(placeName);
+        $('p.lat').html(`Latitude: ${lat}`);
+        $('p.lng').html(`Longitude: ${lng}`);
+        $('.forecast-big').html('Loading the forecast...');
+        if(places[0].name.length > 0){
+          $('.add-places').attr('hidden', false);
+        }
+
+        $('input.place-name').val(placeName);
+        $('input.lat').val(lat);
+        $('input.lng').val(lng);
+      });
+
 
       var icon = {
         url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
@@ -95,7 +99,6 @@ $(() => {
 
         getForecast(data.lat, data.lng, mapDiv);
       }
-      console.log(mapDiv);
 
       if($(mapDiv).hasClass('autocomplete')) initAutocomplete(map);
     });
@@ -114,8 +117,6 @@ $(() => {
       const time = forecast.ace.date;
       const sunrise = forecast.weather.sunrise;
       const sunset = forecast.weather.sunset;
-      console.log(new Date(time) > new Date(sunrise));
-      console.log(new Date(time) < new Date(sunset));
       let probability;
       if(lat >= 60 && kp >= 5 ||
          lat >= 62 && kp >= 4 ||

@@ -62,6 +62,7 @@ function placesCreate(req, res, next) {
     .exec()
     .then((user) => {
       if(!user) return res.notFound();
+      if(user.places.filter(place => place.name === req.body.name).length > 0) return user;
 
       user.places.push(req.body);
       return user.save();

@@ -3,7 +3,7 @@ const bcrypt   = require('bcrypt');
 const s3 = require('../lib/s3');
 
 const placeSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique: true },
   lat: { type: Number, required: true },
   lng: { type: Number, required: true }
 });
