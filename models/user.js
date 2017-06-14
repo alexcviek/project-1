@@ -10,7 +10,7 @@ const placeSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
   username: { type: String },
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   image: { type: String },
   password: { type: String, required: true },
   places: [ placeSchema ]
