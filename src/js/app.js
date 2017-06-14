@@ -38,7 +38,13 @@ $(() => {
         $('h3.place-name').html(placeName);
         $('p.lat').html(`Latitude: ${lat}`);
         $('p.lng').html(`Longitude: ${lng}`);
-        $('.forecast-big').html('Loading the forecast...');
+        $('.forecast-big').html(`Loading the forecast...
+          <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+          `);
         if(places[0].name.length > 0){
           $('.add-places').attr('hidden', false);
         }
@@ -86,7 +92,6 @@ $(() => {
         center: data,
         zoom: $(mapDiv).hasClass('small') ? 10 : 2,
         mapTypeId: 'terrain',
-        zoomControl: false,
         scaleControl: false,
         scrollwheel: false
       });
@@ -133,6 +138,7 @@ $(() => {
       }
       $forecast.html(`The KP in 1 hour will be ${forecast.ace.kp1hour} and the temperature is ${forecast.weather.temperature} <br><p>${probability}</p>`);
       $('.forecast-big').html(`The KP in 1 hour will be ${forecast.ace.kp1hour} and the temperature is ${forecast.weather.temperature} <br><p>${probability}`);
+      $('.spinner').remove();
     });
   }
 
