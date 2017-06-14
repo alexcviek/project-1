@@ -136,11 +136,22 @@ $(() => {
       } else {
         probability = 'Kp too weak for this location';
       }
-      $forecast.html(`The KP in 1 hour will be ${forecast.ace.kp1hour} and the temperature is ${forecast.weather.temperature} <br><p>${probability}</p>`);
-      $('.forecast-big').html(`The KP in 1 hour will be ${forecast.ace.kp1hour} and the temperature is ${forecast.weather.temperature} <br><p>${probability}`);
+      $forecast.html(`<strong>KP in 1 hour:</strong> ${forecast.ace.kp1hour}<br>
+                      <strong>Outside temperature:</strong> ${forecast.weather.temperature}<br>
+                      <strong>Clouds: ${forecast.weather.cloud}</strong><br>
+                      <strong>${probability}</strong>`);
+      $('.forecast-big').html(`<strong>KP in 1 hour:</strong> ${forecast.ace.kp1hour}<br>
+                      <strong>Outside temperature:</strong> ${forecast.weather.temperature}<br>
+                      <strong>Clouds: ${forecast.weather.cloud}</strong><br>
+                      <strong>${probability}</strong>`);
       $('.spinner').remove();
     });
   }
-
   initMap();
+
+  $('.menu').on('click', toggleMenu);
+
+  function toggleMenu(){
+    $('.dropdown').slideToggle();
+  }
 });
