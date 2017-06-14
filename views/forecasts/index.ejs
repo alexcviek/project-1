@@ -1,20 +1,22 @@
-<h3>FORECAST</h3>
-<div class="row">
-  <div class="col-lg-9">
-    <input id="pac-input" class="form-control" type="text" placeholder="Please input location">
-    <div class="map autocomplete"></div>
-  </div>
-  <div class="col-lg-3">
-    <h3 class="place-name"></h3>
-    <p class="lat"></p>
-    <p class="lng"></p>
-    <p class="forecast-big"></p>
-    <form method="POST" action="/users/<%= user.id %>/places">
-      <input class="place-name" type="hidden" name="name" required>
-      <input class="lat" type="hidden" name="lat" required>
-      <input class="lng" type="hidden" name="lng" required>
-      <button class="btn btn-primary add-places" hidden>Save the data to your profile</button>
-    </form>
+<div class="animated slideInUp">
+  <h3>FORECAST</h3>
+  <div class="row">
+    <div class="col-lg-9">
+      <input id="pac-input" class="form-control" type="text" placeholder="Please input location">
+      <div class="map autocomplete"></div>
+    </div>
+    <div class="col-lg-3">
+      <h3 class="place-name"></h3>
+      <p class="lat">Please input the place in the search bar and the forecast will be displayed here</p>
+      <p class="lng"></p>
+      <p class="forecast-big"></p>
+      <form method="POST" action="/users/<%= user.id %>/places">
+        <input class="place-name" type="hidden" name="name" required>
+        <input class="lat" type="hidden" name="lat" required>
+        <input class="lng" type="hidden" name="lng" required>
+        <button class="btn btn-primary add-places" hidden>Save the data to your profile</button>
+      </form>
 
+    </div>
   </div>
 </div>

@@ -1,3 +1,4 @@
+<div class="animated slideInDown">
 <h2>Gallery</h2>
 
 <a href="/auroras/new" class="btn btn-primary">Add a new one!</a>
@@ -6,9 +7,10 @@
       <div class="col-lg-4 col-md-6 picture-box">
       <a href="/auroras/<%= aurora.id %>">
       <div class="card image" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),url(<%= aurora.imageSRC %>)">
-        <h3><%= aurora.country %></h3>
+        <h3 class=""><%= aurora.country %></h3>
         </div>
         </a>
       </div>
     <% }); %>
   </div>
+</div>

@@ -4,8 +4,9 @@ body{
   text-align: center;
   background-color: #fafafa;
   font-family: 'Raleway', sans-serif;
-  background-image: url('https://s3-eu-west-1.amazonaws.com/wdi27/northern_lights_iceland_aurora_borealis-2880x1800.jpg');
-  background-size: cover;
+  background: #159957;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #155799, #159957);
+  background: linear-gradient(to right, #155799, #159957);
   color: #fff;
   a:hover{
     text-decoration: none;
@@ -149,6 +150,8 @@ main{
   .card.image:hover{
     h3{
       visibility: visible;
+      transition: 1s;
+      left: 0;
     }
   }
 

@@ -36,6 +36,7 @@ $(() => {
       $('h3.place-name').html(placeName);
       $('p.lat').html(`Latitude: ${lat}`);
       $('p.lng').html(`Longitude: ${lng}`);
+      $('.forecast-big').html('Loading the forecast...');
       if(places[0].name.length > 0){
         $('.add-places').attr('hidden', false);
       }
@@ -133,16 +134,6 @@ $(() => {
       $('.forecast-big').html(`The KP in 1 hour will be ${forecast.ace.kp1hour} and the temperature is ${forecast.weather.temperature} <br><p>${probability}`);
     });
   }
-
-  function addPulse(){
-    $('.pulse').addClass('animated pulse');
-  }
-  function removePulse(){
-    $('.pulse').removeClass('animated pulse');
-  }
-
-  $('.pulse').on('click', addPulse);
-  $('.pulse').on('mouseleave', removePulse);
 
   initMap();
 });
