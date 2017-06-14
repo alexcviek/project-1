@@ -3,8 +3,11 @@
   <input type="hidden" name="_method" value="PUT">
   <div>
     <label for="country">Place where the photo was taken</label>
-    <input id="pac-input" name="country" class="card form-control" type="text" value="<%= aurora.country %>" placeholder="Please input location">
-    <div id="map"></div>
+    <input id="pac-input" class="card form-control" type="text" value="<%= aurora.country %>" placeholder="Please input location">
+    <input class="place-name" type="hidden" name="country" required>
+    <input class="lat" type="hidden" name="lat" required>
+    <input class="lng" type="hidden" name="lng" required>
+    <div class="map autocomplete"></div>
   </div>
   <button class="btn btn-primary">Save changes</button>
 </form>

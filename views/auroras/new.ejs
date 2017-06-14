@@ -2,8 +2,11 @@
 <form class="col-md-4" method="POST" action="/auroras" enctype="multipart/form-data">
   <div>
     <label for="country">Place where the photo was taken</label>
-    <input id="pac-input" name="country" class="controls form-control" type="text" placeholder="Please input location">
-    <div id="map"></div>
+    <input id="pac-input" class="controls form-control" type="text" placeholder="Please input location" required>
+    <input class="place-name" type="hidden" name="country" required>
+    <input class="lat" type="hidden" name="lat" required>
+    <input class="lng" type="hidden" name="lng" required>
+    <div class="map autocomplete"></div>
   </div>
   <div>
     <label for="image">Image</label>

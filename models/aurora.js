@@ -15,6 +15,8 @@ commentSchema.methods.belongsTo = function commentBelongsTo(user) {
 const auroraSchema = new mongoose.Schema({
   country: { type: String, required: true },
   image: { type: String, required: true },
+  lat: { type: Number },
+  lng: { type: Number },
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
   comments: [ commentSchema ]
 });

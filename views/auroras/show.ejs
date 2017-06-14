@@ -1,7 +1,12 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-lg-6">
     <div class="card image-big" style="background-image: url(<%= aurora.imageSRC %>)">
     </div>
+    <div class="row">
+      <div class="col-md-6">
+    <div class="map small" data-lat="<%= aurora.lat %>" data-lng="<%= aurora.lng %>">></div>
+  </div>
+  <div class="col-md-6">
     <p><%= aurora.country %></p>
     <p>Photo by: <%= aurora.createdBy.username %></p>
     <% if(locals.isLoggedIn && aurora.belongsTo(user)) { %>
@@ -14,13 +19,14 @@
       </div>
     <% } %>
   </div>
-  <div class="col-md-6">
+  </div>
+  </div>
+  <div class="col-lg-6">
 
-  <% if(locals.isLoggedIn) { %>
   <section>
   <form method="POST" action="/auroras/<%= aurora.id %>/comments">
   <div>
-  <textarea class="form-control" name="content" id="content" placeholder="Your comment" rows="3" cols="50"></textarea>
+  <textarea class="form-control" name="content" id="content" placeholder="Your comment" rows="3" cols="50" required></textarea>
   </div>
   <button class="btn btn-primary">Leave a comment</button>
   </form>
@@ -41,11 +47,11 @@
       <input type="hidden" name="_method" value="DELETE">
       <button class="btn danger">X</button>
       </form>
-      </div>
     <% } %>
     </div>
+    </div>
     <% }) %>
-  <% } %>
+
   </section>
 
   </div>

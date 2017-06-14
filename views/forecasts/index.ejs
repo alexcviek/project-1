@@ -1,15 +1,14 @@
 <h3>FORECAST</h3>
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-lg-9">
     <input id="pac-input" class="form-control" type="text" placeholder="Please input location">
-    <div id="map"></div>
+    <div class="map autocomplete"></div>
   </div>
-  <div class="col-md-3">
+  <div class="col-lg-3">
     <h3 class="place-name"></h3>
     <p class="lat"></p>
     <p class="lng"></p>
-    <p id="forecast"></p>
-    <p id="probability"></p>
+    <p class="forecast-big"></p>
     <form method="POST" action="/users/<%= user.id %>/places">
       <input class="place-name" type="hidden" name="name" required>
       <input class="lat" type="hidden" name="lat" required>

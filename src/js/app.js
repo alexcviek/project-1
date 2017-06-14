@@ -2,12 +2,7 @@
 
 $(() => {
 
-  function initAutocomplete() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 51.476369, lng: -0.151669},
-      zoom: 2,
-      mapTypeId: 'terrain'
-    });
+  function initAutocomplete(map) {
 
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
@@ -37,7 +32,6 @@ $(() => {
       const country = places[0].address_components.find((property) => {
         return property.key === 'short_name';
       });
-      console.log(places[0].address_components);
       const placeName = (`${places[0].name}`);
       $('h3.place-name').html(placeName);
       $('p.lat').html(`Latitude: ${lat}`);
@@ -77,42 +71,78 @@ $(() => {
   }
 
 
-  function initMapSmall() {
-    const lat = $('.map-small').data('lat');
-    const lng = $('.map-small').data('lng');
-    console.log(lat);
-    console.log(lng);
-    // const latLng = { lat: parseFloat(lat), lng: parseFloat(lng) };
-    // const map = new google.maps.Map(document.getElementById('map'),{
-    //   zoom: 10,
-    //   center: latLng
-    // });
-    // new google.maps.Marker({
-    //   map: map,
-    //   position: latLng
-    // });
+  function initMap() {
+    const $maps = $('.map');
+    $maps.each((i, mapDiv) => {
+      const hasData = !$.isEmptyObject($(mapDiv).data());
+      const data = hasData ? $(mapDiv).data() : { lat: 0, lng: 0 };
+
+      const map = new google.maps.Map(mapDiv, {
+        center: data,
+        zoom: $(mapDiv).hasClass('small') ? 10 : 2,
+        mapTypeId: 'terrain',
+        zoomControl: false,
+        scaleControl: false,
+        scrollwheel: false
+      });
+
+      if(hasData) {
+        new google.maps.Marker({
+          map: map,
+          position: $(mapDiv).data()
+        });
+
+        getForecast(data.lat, data.lng, mapDiv);
+      }
+      console.log(mapDiv);
+
+      if($(mapDiv).hasClass('autocomplete')) initAutocomplete(map);
+    });
   }
 
-  function getForecast(lat,lng) {
-    const $forecast = $('#forecast');
+  function getForecast(lat,lng, mapDiv) {
+    const $forecast = $(mapDiv).parent().find('.forecast');
+
     $.ajax({
       url: '/probability',
       method: 'GET',
       data: { lat, lng }
     })
     .then((forecast) => {
-      $forecast.html(`The kp in 1 hour will be ${forecast.ace.kp1hour} and the temperature is ${forecast.weather.temperature} `);
-      if(lat >= 60 && forecast.ace.kp1hour >= 5 ||
-         lat >= 62 && forecast.ace.kp1hour >= 4 ||
-         lat >= 65 && forecast.ace.kp1hour >= 3 ||
-         lat >= 68 && forecast.ace.kp1hour >= 2 ||
-         lat >= 70 && forecast.ace.kp1hour >= 1){
-        $('#probability').html('High chances to see northern lights!');
+      const kp = forecast.ace.kp1hour;
+      const time = forecast.ace.date;
+      const sunrise = forecast.weather.sunrise;
+      const sunset = forecast.weather.sunset;
+      console.log(new Date(time) > new Date(sunrise));
+      console.log(new Date(time) < new Date(sunset));
+      let probability;
+      if(lat >= 60 && kp >= 5 ||
+         lat >= 62 && kp >= 4 ||
+         lat >= 65 && kp >= 3 ||
+         lat >= 68 && kp >= 2 ||
+         lat >= 70 && kp >= 1){
+        if(time > sunrise && time < sunset || sunrise === 'n\/a'|| sunset === 'n\/a'){
+          probability = 'High magnetic activity, but too light outside to see it';
+        } else{
+          probability = 'You wll see it';
+        }
       } else {
-        $('#probability').html('Kp too weak for this location');
+        probability = 'Kp too weak for this location';
       }
+      $forecast.html(`The KP in 1 hour will be ${forecast.ace.kp1hour} and the temperature is ${forecast.weather.temperature} <br><p>${probability}</p>`);
+      $('.forecast-big').html(`The KP in 1 hour will be ${forecast.ace.kp1hour} and the temperature is ${forecast.weather.temperature} <br><p>${probability}`);
     });
   }
-  initAutocomplete();
-  initMapSmall();
+
+  function addPulse(){
+    $('.pulse').addClass('animated pulse');
+  }
+  function removePulse(){
+    $('.pulse').removeClass('animated pulse');
+  }
+
+  $('.pulse').on('click', addPulse);
+  $('.pulse').on('mouseleave', removePulse);
+
+  initMap();
 });

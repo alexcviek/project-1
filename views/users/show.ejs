@@ -1,34 +1,32 @@
-<h2 class="title">Hello, <%= user.username %>! </h2>
 <div class="row">
-  <div class="col-md-4">
-    <h4>Your profile details</h4>
+  <div class="col-lg-4">
+    <h4>Profile details</h4>
 
       <div class="profile-img" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),url(<%= user.imageSRC %>)">
         </div>
       <form class="buttons" method="POST" action="/users/<%= user.id %>">
-        <a href="/users/<%= user.id %>/edit" class="btn btn-primary">Edit Account</a>
+        <a href="/users/<%= user.id %>/edit" class="edit-account-btn btn btn-primary">Edit Account</a>
         <input type="hidden" name="_method" value="DELETE">
         <button class="btn danger">Delete Account</button>
       </form>
   </div>
-  <div class="col-md-8">
+  <div class="col-lg-8">
     <h4>My places</h4>
       <div class="row">
         <% user.places.forEach((place) => { %>
         <div class="col-md-4 place">
-        <p><%= place.name %></p>
-        <p>Latitude: <%= place.lat %></p>
-        <p>Longitude: <%= place.lng %></p>
-        <p id="forecast"></p>
-        <div class="map-small" data-lat="<%= place.lat %>" data-lng="<%= place.lng %>"></div>
-        <form method="POST" action="/users/<%= user.id %>/places/<%= place.id %>">
-        <input type="hidden" name="_method" value="DELETE">
-        <button class="btn danger">Delete</button>
-        </form>
+          <p><%= place.name %></p>
+          <p>Latitude: <%= place.lat %></p>
+          <p>Longitude: <%= place.lng %></p>
+          <p class="forecast">Loading...</p>
+          <div class="map small" data-lat="<%= place.lat %>" data-lng="<%= place.lng %>"></div>
+          <form method="POST" action="/users/<%= user.id %>/places/<%= place.id %>">
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="btn danger">Delete</button>
+          </form>
         </div>
       <% }) %>
     </div>
   </div>
-
 
 </div>
