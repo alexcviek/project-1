@@ -2,9 +2,10 @@
   <source src="https://s3-eu-west-1.amazonaws.com/wdi27/video.mp4" type="video/mp4">
   </video>
   <h1>HELLO</h1>
-
-  <div class="login-box col-md-3">
+<% if(!locals.isLoggedIn) { %>
+  <div class="login-box col-lg-3 col-md-6">
     <p><a href="/login" class="btn btn-primary">Login</a></p>
     <p><a href="/register" class="btn btn-primary">Register</a></p>
     <a href="<%= oauth.facebook.getLoginURL() %>" class="btn btn-primary facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i> Login</a>
   </div>
+  <% } %>
