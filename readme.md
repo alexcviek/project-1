@@ -42,6 +42,7 @@ User's page with chosen locations saved (because why not traciking couple of pla
 * AJAX
 * nodeJS
 * GoogleMaps API
+* Facebook oAuth (thanks Nick!!!)
 * first time I've used Balsamiq, does it count? [my super sweet wireframe](https://s3-eu-west-1.amazonaws.com/wdi27/Alex+makes+an+app.png)
 
 ## Challenges faced:
