@@ -1,7 +1,8 @@
 const Aurora = require('../models/aurora');
+const oauth = require('../config/oauth');
 
 function staticsIndex(req, res){
-  res.render('statics/index');
+  res.render('statics/index', { oauth });
 }
 
 function staticsDashboard(req, res, next){
@@ -11,9 +12,6 @@ function staticsDashboard(req, res, next){
   .catch(next);
 }
 
-// function staticsDashboard(req, res){
-//   res.render('statics/dashboard');
-// }
 
 module.exports = {
   index: staticsIndex,

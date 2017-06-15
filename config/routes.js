@@ -8,6 +8,7 @@ const users = require('../controllers/users');
 const forecasts = require('../controllers/forecasts');
 const secureRoute   = require('../lib/secureRoute');
 const upload = require('../lib/upload');
+const oauth = require('../controllers/oauth');
 
 router.route('/')
   .get(statics.index);
@@ -51,6 +52,9 @@ router.route('/register')
 router.route('/login')
   .get(sessions.new)
   .post(sessions.create);
+
+router.route('/oauth/facebook')
+  .get(oauth.facebook);
 
 router.route('/logout')
   .get(sessions.delete);

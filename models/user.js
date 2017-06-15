@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String },
   email: { type: String, required: true, unique: true },
   image: { type: String },
-  password: { type: String, required: true },
+  facebookId: { type: Number },
+  password: { type: String },
   places: [ placeSchema ]
 });
 
@@ -27,6 +28,7 @@ userSchema
   .get(function getImageSRC() {
     if(!this.image) return null;
     if(this.image.match(/^http/)) return this.image;
+    if(this.image.match(/assets/)) return this.image;
     return `https://s3-eu-west-1.amazonaws.com/wdi27/${this.image}`;
   });
 

@@ -27,7 +27,7 @@ body{
 
 h1{
   text-align: center;
-  margin-top: 150px;
+  margin-top: 120px;
   color: #fff;
   font-size: 50px;
   font-weight: 100;
@@ -107,6 +107,12 @@ main{
   }
   .danger:hover{
     background-color: rgba(217, 83, 83, 1);
+  }
+  .facebook{
+    background-color: rgba(2, 117, 216, 0.5);
+  }
+  .facebook:hover{
+    background-color: rgba(2, 117, 216, 0.7);
   }
   form{
     margin: 0 auto;
