@@ -183,18 +183,30 @@ main{
     background-position: center;
     background-size: cover;
   }
+  .pic-details{
+    margin-top: 15px;
+  }
   .comment{
     color: #000;
     border: 1px solid #fff;
     margin: 5px;
     border-radius: 5px;
     background-color: rgba(255,255,255,0.5);
+    position: relative;
     .comment-content{
       p{
-        text-align: left;
+        text-align: justify;
+        padding: 45px 10px 30px 0;
+
       }
-      button{
+      .btn.danger.delete-comment{
         float: right;
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        border-radius: 50%;
+        font-size: 10px;
+        padding: 5px 9px;
       }
     }
     .user-details{
@@ -288,12 +300,13 @@ main{
 }
 @media only screen and (max-width: 575px){
   header {
-    height: auto;
+    .nav-margin{
+      margin-bottom: 300px;
+    }
     nav {
       ul {
         .right{
           float: none;
-          z-index: 999;
         }
         li {
           display: block;
@@ -308,5 +321,8 @@ main{
         }
       }
     }
+  }
+  h2,h3{
+    margin-top: 10px;
   }
 }

@@ -2,7 +2,7 @@
   <div class="col-lg-6 animated slideInLeft">
     <div class="card image-big" style="background-image: url(<%= aurora.imageSRC %>)">
     </div>
-    <div class="row">
+    <div class="row pic-details">
       <div class="col-md-6">
     <div class="map small" data-lat="<%= aurora.lat %>" data-lng="<%= aurora.lng %>">></div>
   </div>
@@ -45,7 +45,7 @@
       <% if(locals.isLoggedIn && comment.belongsTo(user)) { %>
       <form method="POST" action="/auroras/<%= aurora.id %>/comments/<%= comment.id %>">
       <input type="hidden" name="_method" value="DELETE">
-      <button class="btn danger">X</button>
+      <button class="btn danger delete-comment"><small>X</small></button>
       </form>
     <% } %>
     </div>

@@ -153,5 +153,6 @@ $(() => {
 
   function toggleMenu(){
     $('.dropdown').slideToggle();
+    $('nav').toggleClass('nav-margin');
   }
 });
