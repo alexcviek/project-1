@@ -129,7 +129,7 @@ $(() => {
          lat >= 68 && kp >= 2 ||
          lat >= 70 && kp >= 1){
         if(time > sunrise && time < sunset || sunrise === 'n\/a'|| sunset === 'n\/a'){
-          probability = 'High magnetic activity, but too light outside to see it';
+          probability = 'High geomagnetic activity, but too light outside to see it';
         } else{
           probability = 'High chances you\'ll see the mighty aurora!';
         }
