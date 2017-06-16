@@ -4,6 +4,7 @@ const statics = require('../controllers/statics');
 const auroras = require('../controllers/auroras');
 const sessions = require('../controllers/sessions');
 const registrations = require('../controllers/registrations');
+const geonames = require('../controllers/geonames');
 const users = require('../controllers/users');
 const forecasts = require('../controllers/forecasts');
 const secureRoute   = require('../lib/secureRoute');
@@ -70,6 +71,8 @@ router.route('/users/:id/places')
 
 router.route('/users/:id/places/:placeId')
   .delete(secureRoute, users.placesDelete);
+
+router.get('/country', geonames.proxy);
 
 router.all('*', (req, res) => res.notFound());
 

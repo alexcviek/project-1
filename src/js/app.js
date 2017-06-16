@@ -31,7 +31,7 @@ $(() => {
       const lng = (places[0].geometry.location.lng()).toFixed(6);
 
       $.ajax({
-        url: `http://api.geonames.org/countryCodeJSON?lat=${lat}&lng=${lng}&username=alexcwiek`
+        url: `/country?lat=${lat}&lng=${lng}`
       })
       .done((response) => {
         const placeName = (`${places[0].name}, ${response.countryCode}`);
@@ -131,19 +131,17 @@ $(() => {
         if(time > sunrise && time < sunset || sunrise === 'n\/a'|| sunset === 'n\/a'){
           probability = 'High magnetic activity, but too light outside to see it';
         } else{
-          probability = 'You wll see it';
+          probability = 'High chances you\'ll see the mighty aurora!';
         }
       } else {
-        probability = 'Kp too weak for this location';
+        probability = 'KP too weak for this location';
       }
-      $forecast.html(`<strong>KP in 1 hour:</strong> ${forecast.ace.kp1hour}<br>
+      const weatherContent = `<strong>KP in 1 hour:</strong> ${forecast.ace.kp1hour}<br>
                       <strong>Outside temperature:</strong> ${forecast.weather.temperature}<br>
                       <strong>Clouds: ${forecast.weather.cloud}</strong><br>
-                      <strong>${probability}</strong>`);
-      $('.forecast-big').html(`<strong>KP in 1 hour:</strong> ${forecast.ace.kp1hour}<br>
-                      <strong>Outside temperature:</strong> ${forecast.weather.temperature}<br>
-                      <strong>Clouds: ${forecast.weather.cloud}</strong><br>
-                      <strong>${probability}</strong>`);
+                      <strong>${probability}</strong>`;
+      $forecast.html(weatherContent);
+      $('.forecast-big').html(weatherContent);
       $('.spinner').remove();
     });
   }
