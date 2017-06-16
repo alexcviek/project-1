@@ -3,7 +3,6 @@ const User = require('../models/user');
 function userShow (req, res, next) {
   User
     .findById(req.params.id)
-    // .populate('place')
     .exec()
     .then((user) => {
       if(!user) return res.notFound();
