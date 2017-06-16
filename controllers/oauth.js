@@ -24,7 +24,7 @@ function facebook(req, res, next) {
   })
   .then((profile) => {
     console.log(profile);
-    return User.findOne({$or: [{ email: profile.email }, {facebookId: profile.id }]})
+    return User.findOne({$or: [{facebookId: profile.id }, { email: profile.email }]})
     .then((user) => {
       if(!user){
         user = new User({
