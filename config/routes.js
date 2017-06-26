@@ -17,6 +17,10 @@ router.route('/')
 router.route('/dashboard')
   .get(secureRoute, statics.dashboard);
 
+router.route('/faq')
+  .get(secureRoute, statics.faq);
+
+
 router.route('/probability')
   .get(forecasts.probability);
 

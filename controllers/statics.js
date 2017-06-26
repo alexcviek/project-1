@@ -5,6 +5,10 @@ function staticsIndex(req, res){
   res.render('statics/index', { oauth });
 }
 
+function staticsFaq(req, res){
+  res.render('statics/faq');
+}
+
 function staticsDashboard(req, res, next){
   Aurora
   .find()
@@ -15,5 +19,6 @@ function staticsDashboard(req, res, next){
 
 module.exports = {
   index: staticsIndex,
+  faq: staticsFaq,
   dashboard: staticsDashboard
 };
