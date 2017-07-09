@@ -81,6 +81,16 @@ header{
   }
 }
 main{
+  .faq{
+    h5,p,li{
+      text-align: left;
+    }
+    .faq-list{
+      li{
+        list-style: circle;
+      }
+    }
+  }
   .row{
     margin-bottom: 50px;
   }
