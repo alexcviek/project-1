@@ -7,8 +7,7 @@ My fist full stack application - checking the forecast for Aurora Borealis occur
 * Download or clone the repo
 * ```yarn install``` or ```npm i``` to install dependencies
 * gulp to compile the source code and open in browser
-* Note: You'll need to have gulp-cli installed globally ```npm i -g gulp-cli```
-* the game is deployed on Heroku too ([here!](http://peaceful-peak-78688.herokuapp.com/))
+* the app is deployed on Heroku too ([here!](http://peaceful-peak-78688.herokuapp.com/))
 
 ## Description
 
