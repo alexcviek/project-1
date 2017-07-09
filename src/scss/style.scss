@@ -81,6 +81,7 @@ header{
   }
 }
 main{
+  min-height: calc(100vh - 150px);
   .faq{
     h5,p,li{
       text-align: left;
@@ -321,6 +322,20 @@ main{
     } 40% {
       -webkit-transform: scale(1.0);
       transform: scale(1.0);
+    }
+  }
+}
+footer{
+  margin-top: 50px;
+  p{
+    font-weight: 300;
+    font-size: 14px;
+    a{
+      color: #fff;
+      font-size: 20px;
+    }
+    a:hover, a:active{
+      color: #fff;
     }
   }
 }
