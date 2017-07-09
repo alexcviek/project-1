@@ -1,6 +1,6 @@
 # project-1
 
-My fist full stack application - checking the forecast for Aurora Borealis occurence. 
+My fist full stack application - checking the forecast for Aurora Borealis occurrence. 
 
 ## How to install:
 
