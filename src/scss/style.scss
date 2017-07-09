@@ -84,6 +84,13 @@ main{
   .faq{
     h5,p,li{
       text-align: left;
+      a{
+        color: #fff;
+      }
+      a:hover, a:active{
+        color: #fff;
+        text-decoration: underline;
+      }
     }
     .faq-list{
       li{
