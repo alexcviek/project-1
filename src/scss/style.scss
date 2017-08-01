@@ -44,10 +44,6 @@ h2, h3, h4{
 }
 header{
   nav{
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // right: 0;
     height: 50px;
     margin-bottom: 50px;
     ul{
@@ -81,7 +77,7 @@ header{
   }
 }
 main{
-  min-height: calc(100vh - 150px);
+  min-height: calc(100vh - 190px);
   .faq{
     h5,p,li{
       text-align: left;
@@ -104,7 +100,7 @@ main{
   }
   .login-box{
     border: 1px solid rgb(255, 255, 255);
-    margin: 50px auto;
+    margin: 0px auto;
     padding: 50px;
     color: #fff;
     p{
@@ -339,10 +335,10 @@ footer{
     }
   }
 }
-@media only screen and (max-width: 575px){
+@media only screen and (max-width: 585px){
   header {
     .nav-margin{
-      margin-bottom: 300px;
+      margin-bottom: 350px;
     }
     nav {
       ul {
