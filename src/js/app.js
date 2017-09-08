@@ -123,7 +123,7 @@ $(() => {
       const sunrise = forecast.weather.sunrise;
       const sunset = forecast.weather.sunset;
       let probability;
-      if(lat >= 60 && kp >= 5 ||
+      if(lat < 60 && kp >= 5 ||
          lat >= 62 && kp >= 4 ||
          lat >= 65 && kp >= 3 ||
          lat >= 68 && kp >= 2 ||
